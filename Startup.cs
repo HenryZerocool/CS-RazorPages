@@ -25,7 +25,7 @@ namespace CSRazorPages
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }
     }
