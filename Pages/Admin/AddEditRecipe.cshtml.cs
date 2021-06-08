@@ -10,6 +10,7 @@ namespace CSRazorPages.Pages.Admin
 {
     public class AddEditRecipeModel : PageModel
     {
+        private readonly IRecipesService recipesService;
         [FromRoute]
         public long? Id { get; set; }
         public bool IsNewRecipe
@@ -17,8 +18,17 @@ namespace CSRazorPages.Pages.Admin
             get { return Id == null; }
 		}
         public Recipe Recipe { get; set; }
-        public void OnGet()
+		public AddEditRecipeModel(IRecipesService recipesService)
+		{
+            this.recipesService = recipesService;
+		}
+        public async Task OnGetAsync()
         {
+            Recipe = await this.recipesService.FindAsync(Id.GetValueOrDefault()) ?? new Recipe();
         }
+        public async Task<IActionResult> OnPostAsync()
+		{
+            return RedirectToPage("/Recipe", new { id = Id });
+		}
     }
 }
