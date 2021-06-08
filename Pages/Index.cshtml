@@ -1,7 +1,7 @@
 ﻿@page
 @{
-	var recipesService = new RecipesService();
-	var recipes = await recipesService.GetAllAsync();
+	@*var RecipesService = new RecipesService();*@
+	var recipes = await RecipesService.GetAllAsync();
 }
 
 @section Title {
