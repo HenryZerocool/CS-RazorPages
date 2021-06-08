@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static System.Environment;
 
-namespace TopsyTurvyCakes.Models
+namespace CSRazorPages.Models
 {
     public class Recipe
     {

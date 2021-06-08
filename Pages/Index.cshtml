@@ -1,4 +1,10 @@
 ﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using CSRazorPages.Models
+@{
+	var recipesService = new RecipesService();
+	var recipes = await recipesService.GetAllAsync();
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +28,19 @@
 				</ul>
 				<ul class="nav nav-pills">
 					<li>
-						<a href="/Account/Login">Login</a>
+						@if (!User.Identity.IsAuthenticated)
+						{
+							<a href="/Account/Login">Login</a>
+						}
+						else
+						{
+							<form method="post">
+								<div class="input-group">
+									<span>@User.Identity.Name</span>
+									<button type="submit" class="btn btn-link">Logout</button>
+								</div>
+							</form>
+						}
 					</li>
 				</ul>
 			</nav>
@@ -36,11 +54,14 @@
 
 		<div class="row recipes">
 
-			<div class="recipe col-md-4">
-				<img class="img img-thumbnail" src="http://topsyturvycakedesign.com/birthday-cake-for-fido/" />
-				<h3><a href="/Recipe">Birthday Cake for Fido</a></h3>
-				<p>Treat your puppy to a delicious birthday treat!</p>
-			</div>
+			@foreach (var recipe in recipes)
+			{
+				<div class="recipe col-md-4">
+					<img class="img img-thumbnail" src="@recipe.GetInlineImageSrc()" />
+					<h3><a asp-page="/Recipe" asp-route-id="@recipe.Id">@recipe.Name</a></h3>
+					<p>@recipe.Description</p>
+				</div>
+			}
 
 		</div>
 
@@ -48,7 +69,7 @@
 
 	<footer>
 		<div class="text-center">
-			<span class="text-muted">Last Rendered:  </span>
+			<span class="text-muted">Last Rendered: @DateTime.Now </span>
 		</div>
 	</footer>
 </body>

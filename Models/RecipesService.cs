@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TopsyTurvyCakes.Models
+namespace CSRazorPages.Models
 {
     public class RecipesService : IRecipesService
     {

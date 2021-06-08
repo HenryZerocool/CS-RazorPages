@@ -1,8 +1,15 @@
-﻿@page
+﻿@page "{id}"
+@using CSRazorPages.Models
+@{
+    var id = long.Parse((string)RouteData.Values["id"]);
+    var recipesService = new RecipesService();
+    var recipe = await recipesService.FindAsync(id);
+}
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Topsy Turvy Cake Design</title>
+	<link rel="stylesheet" href="~/site.css" />
 </head>
 <body>
 
@@ -27,7 +34,7 @@
 			</nav>
 		</div>
 		<div class="row">
-			<h2 class="title">Recipe Details</h2>
+			<h2 class="title">@recipe.Name</h2>
 		</div>
 	</header>
 
@@ -40,7 +47,7 @@
 				<div class="col-md-12">
 
 					<span class="description">
-						[ DESCRIPTION ]
+						@recipe.Description
 					</span>
 
 					<hr />
@@ -49,21 +56,27 @@
 				<div class="ingredients col-md-4">
 					<h4>Ingredients</h4>
 					<ul>
-						<li>[INGREDIENT]</li>
+						@foreach (var ingredient in recipe.IngredientsList)
+						{
+						<li>@ingredient</li>
+						}
 					</ul>
 				</div>
 
 				<div class="directions col-md-8">
 					<h4>Directions</h4>
 					<ol>
-						<li>[STEP]</li>
+						@foreach (var step in recipe.DirectionsList)
+						{
+						<li>@step</li>
+						}
 					</ol>
 				</div>
 
 			</div>
 
 			<div class="col-md-4 text-right">
-				<img class="img img-thumbnail" src="[IMAGE]" />
+				<img class="img img-thumbnail" src="@recipe.GetInlineImageSrc()" />
 			</div>
 
 		</div>
