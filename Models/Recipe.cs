@@ -7,9 +7,14 @@ namespace CSRazorPages.Models
     public class Recipe
     {
         public long Id { get; set; }
+        [Required]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Name length should be between 5-100 characters")]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Directions { get; set; }
+        [Required]
         public string Ingredients { get; set; }
 
         public IEnumerable<string> DirectionsList
