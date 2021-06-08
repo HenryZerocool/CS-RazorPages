@@ -1,0 +1,7 @@
+﻿@page "{id?}"
+@model CSRazorPages.Pages.Admin.AddEditRecipeModel
+@{
+	ViewData["Title"] = Model.IsNewRecipe ? "New Recipe" : "Edit Recipe";
+}
+
+<h3> @Model.Id </h3>
